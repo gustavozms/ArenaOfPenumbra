@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -6,34 +7,66 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 mousePosition;
     public bool canMove = true;
-    public float moveSpeed = 5f;
-    public float distanceDash = 10f;
+    public float moveSpeed = 1f;
+
+    public float followMaxDistance = 3f;
+
+
+    public float dashDistance = 50f;
+    public float dashCooldown = 1f;
+    private float lastDashTime;
+
+
 
     void Update()
     {
-        movementFollowMouse();
+        MovementFollowMouse();
+        Dash();
     }
 
-    void movementFollowMouse()
+    void MovementFollowMouse()
     {
         if (canMove)
         {
+            //Player seguindo o mouse
+            // Pega a posição do mouse na tela e converte para o mundo
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            transform.position = Vector2.Lerp(transform.position, mousePosition, moveSpeed * Time.deltaTime);
-            Vector2 aimDirection = mousePosition - rb.position;
+
+            // Calcula a distância entre o player e o mouse
+            float distanceToMouse = Vector2.Distance(transform.position, mousePosition);
+
+            if (distanceToMouse >= followMaxDistance)
+            {
+                // Player segue o mouse suavemente
+                // transform.position = Vector2.Lerp(transform.position, mousePosition, moveSpeed * Time.deltaTime);
+
+                // Player segue o mouse sempre na mesma velocidade
+                Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
+                rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * direction);
+
+            }
+
+
+
+            //Sprite apontar para onde está andando
+                Vector2 aimDirection = mousePosition - rb.position;
             float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
             rb.rotation = aimAngle;
         }
     }
 
-    //void dashIntoMouse()
-    //{
-    //    if (Input.GetMouseButtonDown(2))
-    //    {
-    //        canMove = false;
-    //        transform.position = Vector2.Lerp(transform.position, mousePosition, moveSpeed * 5 * Time.deltaTime);
-    //    }
-    //}
+    void Dash()
+    
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 dashDirection = (mouseWorldPosition - (Vector2)transform.position).normalized;
+            Vector2 dashTarget = (Vector2)transform.position + dashDirection * dashDistance;
+
+            rb.MovePosition(dashTarget); // Move instantaneamente
+        }
+    }
 
 }

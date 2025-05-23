@@ -486,10 +486,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3f22440c35a6d4898f5ed1a1d2c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  rb: {fileID: 1361045548}
   canMove: 1
-  moveSpeed: 5
-  distanceDash: 10
+  moveSpeed: 1
+  followMaxDistance: 3
+  dashDistance: 500
+  dashCooldown: 1
 --- !u!212 &1361045546
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -555,7 +557,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
