@@ -7,9 +7,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 mousePosition;
     public bool canMove = true;
-    public float moveSpeed = 1f;
+    public float moveSpeed = 10f;
 
-    public float followMaxDistance = 3f;
+    public float followMaxDistance = 1f;
 
 
     public float dashDistance = 50f;
@@ -18,10 +18,19 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    void Update()
+    void FixedUpdate()
     {
         MovementFollowMouse();
-        Dash();
+
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Dash();
+            Debug.Log("Dash");
+        }
     }
 
     void MovementFollowMouse()
@@ -43,30 +52,28 @@ public class PlayerMovement : MonoBehaviour
 
                 // Player segue o mouse sempre na mesma velocidade
                 Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
-                rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * direction);
+                rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * direction);
 
             }
 
 
 
             //Sprite apontar para onde está andando
-                Vector2 aimDirection = mousePosition - rb.position;
+            Vector2 aimDirection = mousePosition - rb.position;
             float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
             rb.rotation = aimAngle;
         }
     }
 
+
     void Dash()
-    
+
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 dashDirection = (mouseWorldPosition - (Vector2)transform.position).normalized;
-            Vector2 dashTarget = (Vector2)transform.position + dashDirection * dashDistance;
 
-            rb.MovePosition(dashTarget); // Move instantaneamente
-        }
+        Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 dashDirection = (mouseWorldPosition - (Vector2)transform.position).normalized;
+        Vector2 dashTarget = (Vector2)transform.position + dashDirection * dashDistance;
+
+        rb.MovePosition(dashTarget); // Move instantaneamente
     }
-
 }
