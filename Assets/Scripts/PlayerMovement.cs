@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (isDashing && !enemy.isDashing)
             {
-                Debug.Log("Player damaged enemy while dashing!");
+                Debug.Log("player damaged enemy while dashing");
                 Destroy(enemy.gameObject);
             }
         }

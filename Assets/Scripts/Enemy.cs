@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("Movement Settings")]
+    [Header("Enemy Settings")]
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashDistance = 5f;
@@ -61,11 +61,11 @@ public class Enemy : MonoBehaviour
         {
             if (isDashing)
             {
-                Debug.Log("Enemy damaged player while dashing!");
+                Debug.Log("enemy damaged player while dashing");
             }
             else if (player.isDashing)
             {
-                Debug.Log("Player dashed into enemy! Enemy dies.");
+                Debug.Log("player dashed into enemy");
                 Destroy(gameObject);
                 isDead = true;
             }
