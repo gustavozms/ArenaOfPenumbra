@@ -1,11 +1,10 @@
-using JetBrains.Annotations;
 using UnityEngine;
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D rb;
 
+    private Rigidbody2D rb;
     private Vector2 mousePosition;
     public bool canMove = true;
     public float moveSpeed = 10f;
@@ -17,7 +16,13 @@ public class PlayerMovement : MonoBehaviour
     public float dashCooldown = 0.5f;
     private float lastDashTime;
 
+    public bool isDashing { get; private set; }
 
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && canMove)
@@ -44,12 +49,14 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator PerformDash()
     {
-            canMove = false;
-            Dash();
-            Debug.Log("Dash");
+        isDashing = true;
+        canMove = false;
+        Dash();
+        Debug.Log("Dash");
 
-            yield return new WaitForSeconds(dashCooldown);
-            canMove = true;
+        yield return new WaitForSeconds(dashCooldown);
+        isDashing = false;
+        canMove = true;
     }
 
     void MovementFollowMouse()
@@ -76,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
-    
+
     }
 
 
@@ -89,5 +96,18 @@ public class PlayerMovement : MonoBehaviour
         Vector2 dashTarget = (Vector2)transform.position + dashDirection * dashDistance;
 
         rb.MovePosition(dashTarget); // Move instantaneamente
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            if (isDashing && !enemy.isDashing)
+            {
+                Debug.Log("Player damaged enemy while dashing!");
+                Destroy(enemy.gameObject);
+            }
+        }
     }
 }
