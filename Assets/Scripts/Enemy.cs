@@ -8,9 +8,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashDistance = 5f;
     [SerializeField] private float dashCooldown = 2f;
-    [SerializeField] private int damageToPlayer = 1;
-
-    private bool isDead = false;
 
     private Transform player;
     private Rigidbody2D rb;
@@ -52,22 +49,23 @@ public class Enemy : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDead) return;
+        PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+        Player player = collision.gameObject.GetComponent<Player>();
 
-        PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
-        if (player != null)
+        if (playerMovement && player != null)
         {
+
             if (isDashing)
             {
-                Debug.Log("enemy damaged player while dashing");
+                player.TakeDamage();
             }
-            else if (player.isDashing)
+            else if (playerMovement.isDashing)
             {
                 Debug.Log("player dashed into enemy");
                 Destroy(gameObject);
-                isDead = true;
             }
         }
     }

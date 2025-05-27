@@ -3,8 +3,6 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Player Settings")]
-
     [Header("Movement Settings")]
     private Rigidbody2D rb;  // Reference to Rigidbody2D for movement
     private Vector2 mousePosition;  // Stores current mouse position
