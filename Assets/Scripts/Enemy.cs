@@ -50,23 +50,4 @@ public class Enemy : MonoBehaviour
         isDashing = false;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
-        Player player = collision.gameObject.GetComponent<Player>();
-
-        if (playerMovement && player != null)
-        {
-
-            if (isDashing)
-            {
-                player.TakeDamage();
-            }
-            else if (playerMovement.isDashing)
-            {
-                Debug.Log("player dashed into enemy");
-                Destroy(gameObject);
-            }
-        }
-    }
 }

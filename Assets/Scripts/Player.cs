@@ -5,6 +5,9 @@ public class Player : MonoBehaviour
     [Header("GameManager")]
     [SerializeField] GameObject gameManager;
 
+    [Header("UI Manager")]
+    [SerializeField] HeartManager heartManager;  // Referência ao gerenciador de corações
+
     [Header("Player Stats")]
     [SerializeField] private int maxHealth = 1;
     private int currentHealth;
@@ -12,6 +15,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        heartManager.UpdateHearts(currentHealth);
     }
 
     public void TakeDamage()
@@ -19,6 +23,7 @@ public class Player : MonoBehaviour
         if (currentHealth >= 1)
         {
             currentHealth--;
+            heartManager.UpdateHearts(currentHealth);
         }
 
         if (currentHealth <= 0)

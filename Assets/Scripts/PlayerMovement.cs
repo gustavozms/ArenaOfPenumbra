@@ -108,13 +108,19 @@ public class PlayerMovement : MonoBehaviour
     {
         // Detect collision with enemy
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        
         if (enemy != null)
         {
-            // If player is dashing and enemy is not, destroy the enemy
-            if (isDashing && !enemy.isDashing)
+
+            if (isDashing)
             {
-                Debug.Log("player damaged enemy while dashing");
+                Debug.Log("Enemy damaged enemy while dashing");
                 Destroy(enemy.gameObject);
+            }
+            else if (!isDashing && enemy.isDashing)
+            {
+                Debug.Log("Player damaged player while dashing");
+                GetComponent<Player>().TakeDamage();
             }
         }
     }
