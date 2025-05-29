@@ -24,8 +24,18 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
+        if (spawnedEnemies.Count >= maxEnemies) {yield return null; }
         while (true)
         {
+            if (spawnedEnemies.Count > maxEnemies)
+            {
+                Destroy(spawnedEnemies[0]);
+                spawnedEnemies.RemoveAt(0);
+
+                //yield return new WaitForSeconds(spawnInterval);
+                //continue;  // skip this iteration, don't spawn new enemy
+            }
+
             Vector2 randomPosition;
 
             do
@@ -34,8 +44,8 @@ public class Spawner : MonoBehaviour
                 float mapWidth = mapHeight * cam.aspect;
 
                 randomPosition = new Vector2(
-                    Random.Range((-mapWidth / 2) - mapWidthOffset, (mapWidth / 2) + mapWidthOffset),
-                    Random.Range((-mapHeight / 2) - mapHeightOffset, (mapHeight / 2) + mapHeightOffset));
+                Random.Range((-mapWidth / 2) - mapWidthOffset, (mapWidth / 2) + mapWidthOffset),
+                Random.Range((-mapHeight / 2) - mapHeightOffset, (mapHeight / 2) + mapHeightOffset));
             }
             while (Vector2.Distance(randomPosition, player.transform.position) <= radius);
 
@@ -44,14 +54,16 @@ public class Spawner : MonoBehaviour
 
             spawnedEnemies.Add(newEnemy);
 
-            if (spawnedEnemies.Count > maxEnemies)
-            {
-                Destroy(spawnedEnemies[0]);
-                spawnedEnemies.RemoveAt(0);
-            }
-
             yield return new WaitForSeconds(spawnInterval);
 
+        }
+    }
+
+    public void RemoveEnemy(GameObject enemy)
+    {
+        if (spawnedEnemies.Contains(enemy))
+        {
+            spawnedEnemies.Remove(enemy);
         }
     }
 
