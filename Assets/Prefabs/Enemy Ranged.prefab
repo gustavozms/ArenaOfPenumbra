@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8076828700474014478}
   - component: {fileID: 8643853889185839137}
-  - component: {fileID: 7987235373822143519}
   - component: {fileID: 4948087852419929835}
   - component: {fileID: 2629022341401658343}
+  - component: {fileID: 2734286164734965784}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy Ranged
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.7169812, g: 0.07102172, b: 0.07102172, a: 1}
+  m_Color: {r: 0.7176471, g: 0.31944412, b: 0.07058824, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -90,22 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7987235373822143519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7553547594801109167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6f5d60681fb74f6e8761c8e02469185, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  dashSpeed: 10
-  dashDistance: 5
-  dashCooldown: 2
 --- !u!58 &4948087852419929835
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -169,3 +153,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2734286164734965784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7553547594801109167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5831bd46020ef5544bd0b045836ed286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 4
+  stopDistance: 7
+  projectilePrefab: {fileID: 8085202963609063731, guid: d8549fc7a7a4d094d88f2e9e5ef9dc75, type: 3}
+  projectileSpeed: 10
+  attackCooldown: 2

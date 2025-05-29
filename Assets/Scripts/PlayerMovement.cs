@@ -108,7 +108,10 @@ public class PlayerMovement : MonoBehaviour
     {
         // Detect collision with enemy
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-        
+        EnemyRanged enemyRanged = collision.gameObject.GetComponent<EnemyRanged>();
+        Projectile projectile = collision.gameObject.GetComponent<Projectile>();
+
+
         if (enemy != null)
         {
 
@@ -122,6 +125,27 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Player damaged player while dashing");
                 GetComponent<Player>().TakeDamage();
             }
+        }
+
+        if (enemyRanged != null)
+        {
+            if (isDashing)
+            {
+                Destroy(enemyRanged.gameObject);
+            }
+        }
+
+        if (projectile != null)
+        {
+            if (isDashing)
+            {
+                Destroy(projectile.gameObject);
+            }
+            else if (!isDashing)
+            {
+                GetComponent<Player>().TakeDamage();
+            }
+
         }
     }
 }
