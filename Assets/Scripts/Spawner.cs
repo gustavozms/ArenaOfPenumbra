@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Spawner : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] private GameObject player;
     [SerializeField] private float radius = 0f;
 
     [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject enemyRanged;
     [SerializeField] private float spawnInterval = 1f;
 
     [SerializeField] private Camera cam;
@@ -21,41 +24,38 @@ public class Spawner : MonoBehaviour
     {
         StartCoroutine(SpawnEnemy());
     }
+    private void Update()
+    {
+        Debug.Log(spawnedEnemies.Count); // count decreases when enemies are killed, increases when enemies are spawned
+    }
 
     IEnumerator SpawnEnemy()
     {
-        if (spawnedEnemies.Count >= maxEnemies) {yield return null; }
         while (true)
         {
-            if (spawnedEnemies.Count > maxEnemies)
+            if (spawnedEnemies.Count < maxEnemies)
             {
-                Destroy(spawnedEnemies[0]);
-                spawnedEnemies.RemoveAt(0);
+                Vector2 randomPosition;
 
-                //yield return new WaitForSeconds(spawnInterval);
-                //continue;  // skip this iteration, don't spawn new enemy
+                do
+                {
+                    float mapHeight = 2f * cam.orthographicSize;
+                    float mapWidth = mapHeight * cam.aspect;
+
+                    randomPosition = new Vector2(
+                        Random.Range((-mapWidth / 2) - mapWidthOffset, (mapWidth / 2) + mapWidthOffset),
+                        Random.Range((-mapHeight / 2) - mapHeightOffset, (mapHeight / 2) + mapHeightOffset));
+                }
+                while (Vector2.Distance(randomPosition, player.transform.position) <= radius);
+
+                transform.position = randomPosition;
+
+                GameObject enemyType = Random.Range(0, 2) == 0 ? enemy : enemyRanged;
+                GameObject newEnemy = Instantiate(enemyType, transform.position, Quaternion.identity);
+                spawnedEnemies.Add(newEnemy);
             }
-
-            Vector2 randomPosition;
-
-            do
-            {
-                float mapHeight = 2f * cam.orthographicSize;
-                float mapWidth = mapHeight * cam.aspect;
-
-                randomPosition = new Vector2(
-                Random.Range((-mapWidth / 2) - mapWidthOffset, (mapWidth / 2) + mapWidthOffset),
-                Random.Range((-mapHeight / 2) - mapHeightOffset, (mapHeight / 2) + mapHeightOffset));
-            }
-            while (Vector2.Distance(randomPosition, player.transform.position) <= radius);
-
-            transform.position = randomPosition;
-            GameObject newEnemy = Instantiate(enemy, transform.position, Quaternion.identity);
-
-            spawnedEnemies.Add(newEnemy);
 
             yield return new WaitForSeconds(spawnInterval);
-
         }
     }
 

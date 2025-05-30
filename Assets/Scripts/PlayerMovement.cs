@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float followMaxDistance = 1f; // Minimum distance for the player to follow the mouse
 
     [Header("Dash Settings")]
+    [SerializeField] GameObject spawnerObj;
     bool wantsToDash = false; // Flag indicating if the player wants to dash
     public float dashCooldown = 0.5f; // Time between dashes
     private float lastDashTime; // Records the last time the dash was used
@@ -111,14 +112,14 @@ public class PlayerMovement : MonoBehaviour
         EnemyRanged enemyRanged = collision.gameObject.GetComponent<EnemyRanged>();
         Projectile projectile = collision.gameObject.GetComponent<Projectile>();
 
-
         if (enemy != null)
         {
-
             if (isDashing)
             {
                 Debug.Log("Enemy damaged enemy while dashing");
                 Destroy(enemy.gameObject);
+                Spawner spawner = spawnerObj.GetComponent<Spawner>();
+                spawner.RemoveEnemy(collision.gameObject);
             }
             else if (!isDashing && enemy.isDashing)
             {
@@ -132,6 +133,8 @@ public class PlayerMovement : MonoBehaviour
             if (isDashing)
             {
                 Destroy(enemyRanged.gameObject);
+                Spawner spawner = spawnerObj.GetComponent<Spawner>();
+                spawner.RemoveEnemy(collision.gameObject);
             }
         }
 
