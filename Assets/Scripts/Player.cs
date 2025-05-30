@@ -18,13 +18,6 @@ public class Player : MonoBehaviour
 
         gameManager = FindAnyObjectByType<GameManager>();
     }
-    void Update()
-    {
-        if (gameManager == null)
-        {
-            gameManager = FindAnyObjectByType<GameManager>();
-        }
-    }
 
     public void TakeDamage()
     {
@@ -45,8 +38,11 @@ public class Player : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Dead");
-            GameManager manager = gameManager.GetComponent<GameManager>();
-            manager.EndGame();
+            if (gameManager == null)
+            {
+                gameManager = FindAnyObjectByType<GameManager>();
+            }
+            gameManager.EndGame();
         }
     }
 
