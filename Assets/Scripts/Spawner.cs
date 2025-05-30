@@ -24,10 +24,6 @@ public class Spawner : MonoBehaviour
     {
         StartCoroutine(SpawnEnemy());
     }
-    private void Update()
-    {
-        Debug.Log(spawnedEnemies.Count); // count decreases when enemies are killed, increases when enemies are spawned
-    }
 
     IEnumerator SpawnEnemy()
     {

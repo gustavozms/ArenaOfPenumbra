@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 334027910}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Padding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 391877169}
   - component: {fileID: 391877171}
   - component: {fileID: 391877170}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Heart2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -591,7 +591,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 604004754}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ Transform:
   m_GameObject: {fileID: 604004753}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.6071358, y: -0.18359156, z: -0.06651269}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10770,7 +10770,7 @@ GameObject:
   - component: {fileID: 1308077612}
   - component: {fileID: 1308077614}
   - component: {fileID: 1308077613}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Heart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10846,6 +10846,7 @@ GameObject:
   - component: {fileID: 1361045546}
   - component: {fileID: 1361045551}
   - component: {fileID: 1361045545}
+  - component: {fileID: 1361045552}
   - component: {fileID: 1361045550}
   - component: {fileID: 1361045548}
   - component: {fileID: 1361045549}
@@ -11136,9 +11137,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab26375cda0d464c95d32f267e2dce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1809571630}
   heartManager: {fileID: 440363457}
   maxHealth: 3
+--- !u!114 &1361045552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361045544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e7fcff83de64853a3d593d2c582a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1411707043
 GameObject:
   m_ObjectHideFlags: 0
@@ -11185,7 +11197,7 @@ GameObject:
   - component: {fileID: 1437390000}
   - component: {fileID: 1437389999}
   - component: {fileID: 1437389998}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Lives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11290,7 +11302,7 @@ GameObject:
   - component: {fileID: 1758333254}
   - component: {fileID: 1758333253}
   - component: {fileID: 1758333252}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11380,11 +11392,50 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1809571630 stripped
+--- !u!1 &1968955085
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1998717561595305525, guid: 98f57abf77c044faba5989ceacae60b4, type: 3}
-  m_PrefabInstance: {fileID: 677536381634276194}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1968955086}
+  - component: {fileID: 1968955087}
+  m_Layer: 0
+  m_Name: Collision Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1968955086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968955085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1968955087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968955085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e7fcff83de64853a3d593d2c582a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2008275014
 GameObject:
   m_ObjectHideFlags: 0
@@ -11474,7 +11525,7 @@ GameObject:
   - component: {fileID: 2026867504}
   - component: {fileID: 2026867506}
   - component: {fileID: 2026867505}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Heart3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11742,11 +11793,12 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 677536381634276194}
+  - {fileID: 1968955086}
   - {fileID: 440363458}
   - {fileID: 593987079}
   - {fileID: 1361045547}
   - {fileID: 913745503}
-  - {fileID: 604004754}
-  - {fileID: 737970117}
   - {fileID: 538503885}
   - {fileID: 1411707044}
+  - {fileID: 604004754}
+  - {fileID: 737970117}

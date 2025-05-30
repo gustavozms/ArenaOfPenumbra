@@ -3,20 +3,27 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [Header("GameManager")]
-    [SerializeField] GameObject gameManager;
-
     [Header("UI Manager")]
-    [SerializeField] HeartManager heartManager;  // Referência ao gerenciador de corações
+    [SerializeField] HeartManager heartManager;
 
     [Header("Player Stats")]
     [SerializeField] private int maxHealth = 1;
     private int currentHealth;
+    private GameManager gameManager;
 
     void Start()
     {
         currentHealth = maxHealth;
         heartManager.UpdateHearts(currentHealth);
+
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
+    void Update()
+    {
+        if (gameManager == null)
+        {
+            gameManager = FindAnyObjectByType<GameManager>();
+        }
     }
 
     public void TakeDamage()

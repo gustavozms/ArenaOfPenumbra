@@ -4,7 +4,7 @@ public class EnemyRanged : MonoBehaviour
 {
     [Header("Enemy Settings")]
     [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float stopDistance = 5f;   // Distância ideal
+    [SerializeField] private float stopDistance = 5f;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float attackCooldown = 2f;
@@ -17,7 +17,7 @@ public class EnemyRanged : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        
+
     }
 
     void Update()
